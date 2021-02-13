@@ -12,7 +12,7 @@ namespace BaseApi.Domain.Repositories
     {
         protected readonly DatabaseContext Context;
 
-        private DbSet<T> _table = null;
+        private readonly DbSet<T> _table = null;
 
         public GenericRepository(DatabaseContext context)
         {
@@ -41,7 +41,7 @@ namespace BaseApi.Domain.Repositories
         /// <summary>
         /// Removes related entity from database.
         /// </summary>
-        /// <param name="user">Entity to remove.</param>
+        /// <param name="obj">Entity to remove.</param>
         public void Remove(T obj)
         {
             _table.Remove(obj);

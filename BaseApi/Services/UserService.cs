@@ -16,22 +16,23 @@ namespace BaseApi.Services
         {
             //find by email
             User check = await FindByEmailAsync(obj.Email);
-            if (check != null) return new ObjectResponse<User>(Constants.ErrorMessages.UserErrors.EmailExist);
+            if (check != null) return new ObjectResponse<User>(Constants.ErrorMessages.User.EmailExist);
 
-            return await base.AddAsync(check);
+            return await base.AddAsync(obj);
         }
 
         public override async Task<ObjectResponse<User>> UpdateAsync(User obj)
         {
             User toUpdate = await FindByIdAsync(obj.ID);
-            if (toUpdate == null) return new ObjectResponse<User>(Constants.ErrorMessages.UserErrors.UserNotFound);
+            if (toUpdate == null) return new ObjectResponse<User>(Constants.ErrorMessages.User.UserNotFound);
 
             //if user attempt to change email
             if (obj.Email != null && obj.Email != toUpdate.Email)
             {
                 User checkEmail = await FindByEmailAsync(obj.Email);
-                if (checkEmail != null) return new ObjectResponse<User>(Constants.ErrorMessages.UserErrors.EmailExist);
+                if (checkEmail != null) return new ObjectResponse<User>(Constants.ErrorMessages.User.EmailExist);
             }
+            
             //TODO update all required fields
             toUpdate.Email = obj.Email ?? toUpdate.Email;
             toUpdate.FullName = obj.FullName ?? toUpdate.FullName;
@@ -46,9 +47,9 @@ namespace BaseApi.Services
         public override async Task<ObjectResponse<User>> DeleteAsync(User obj)
         {
             User toRemove = await FindByIdAsync(obj.ID);
-            if (toRemove == null) return new ObjectResponse<User>(Constants.ErrorMessages.UserErrors.UserNotFound);
+            if (toRemove == null) return new ObjectResponse<User>(Constants.ErrorMessages.User.UserNotFound);
 
-            return await base.DeleteAsync(obj);
+            return await base.DeleteAsync(toRemove);
         }
 
         private async Task<User> FindByIdAsync(long id)

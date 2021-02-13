@@ -30,7 +30,7 @@ namespace BaseApi.Services
             if (userResponse.Success)
             {
                 User user = userResponse.Object;
-                if (user.PassWord != password) return new ObjectResponse<AccessToken>(Constants.ErrorMessages.AuthErrors.WrongPassword);
+                if (user.PassWord != password) return new ObjectResponse<AccessToken>(Constants.ErrorMessages.Auth.WrongPassword);
 
                 AccessToken token = _tokenHelper.CreateAccessToken(user);
                 user.RefreshToken = token.RefreshToken;
@@ -38,7 +38,8 @@ namespace BaseApi.Services
                 await _userService.UpdateAsync(user);
                 return new ObjectResponse<AccessToken>(token);
             }
-            else return new ObjectResponse<AccessToken>(Constants.ErrorMessages.AuthErrors.WrongEmail);
+            
+            return new ObjectResponse<AccessToken>(Constants.ErrorMessages.Auth.WrongEmail);
         }
 
         /// <summary>
@@ -55,7 +56,7 @@ namespace BaseApi.Services
             {
                 User user = userResponse.Object;
                 if (user.RefreshTokenExpirationDate < DateTime.Now)
-                    return new ObjectResponse<AccessToken>(Constants.ErrorMessages.AuthErrors.RefreshTokenExpired);
+                    return new ObjectResponse<AccessToken>(Constants.ErrorMessages.Auth.RefreshTokenExpired);
 
                 AccessToken token = _tokenHelper.CreateAccessToken(user);
                 user.RefreshToken = token.RefreshToken;
@@ -63,7 +64,8 @@ namespace BaseApi.Services
                 await _userService.UpdateAsync(user);
                 return new ObjectResponse<AccessToken>(token);
             }
-            else return new ObjectResponse<AccessToken>(Constants.ErrorMessages.AuthErrors.RefreshTokenNotFound);
+            
+            return new ObjectResponse<AccessToken>(Constants.ErrorMessages.Auth.RefreshTokenNotFound);
         }
 
         /// <summary>
@@ -82,8 +84,8 @@ namespace BaseApi.Services
                 user.RefreshTokenExpirationDate = DateTime.MinValue;
                 await _userService.UpdateAsync(user);
                 return new ObjectResponse<AccessToken>(new AccessToken());
-            }
-            else return new ObjectResponse<AccessToken>(Constants.ErrorMessages.AuthErrors.RefreshTokenNotFound);
+            } 
+            return new ObjectResponse<AccessToken>(Constants.ErrorMessages.Auth.RefreshTokenNotFound);
         }
 
     }

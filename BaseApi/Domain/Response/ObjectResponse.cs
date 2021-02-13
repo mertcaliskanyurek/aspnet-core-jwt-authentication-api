@@ -3,10 +3,10 @@ namespace BaseApi.Domain.Response
 {
     public class ObjectResponse<T> where T:class
     {
-        public T Object { get; set; }
+        public T Object { get; private set; }
 
-        public bool Success { get; set; }
-        public string Message { get; set; }
+        public bool Success { get; private set; }
+        public string Message { get; private set; }
 
         private ObjectResponse(bool success, string message, T obj)
         {

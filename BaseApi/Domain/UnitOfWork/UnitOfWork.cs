@@ -16,7 +16,7 @@ namespace BaseApi.Domain.UnitOfWork
         /// <summary>
         /// Saves changes of the database context.
         /// </summary>
-        public async Task ComplateAsync()
+        public async Task CompleteAsync()
         {
             await _dbContext.SaveChangesAsync();
         }

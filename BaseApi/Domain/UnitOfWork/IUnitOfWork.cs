@@ -5,6 +5,6 @@ namespace BaseApi.Domain.UnitOfWork
 {
     public interface IUnitOfWork
     {
-        Task ComplateAsync();
+        Task CompleteAsync();
     }
 }

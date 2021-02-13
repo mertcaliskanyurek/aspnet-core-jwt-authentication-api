@@ -31,7 +31,7 @@ namespace BaseApi.Services
             try
             {
                 await Repository.AddAsync(obj);
-                await UnitOfWork.ComplateAsync();
+                await UnitOfWork.CompleteAsync();
                 return new ObjectResponse<T>(obj);
             }
             catch (Exception e)
@@ -51,7 +51,7 @@ namespace BaseApi.Services
             try
             {
                 Repository.Remove(obj);
-                await UnitOfWork.ComplateAsync();
+                await UnitOfWork.CompleteAsync();
                 return new ObjectResponse<T>(obj);
             }
             catch (Exception e)
@@ -70,7 +70,7 @@ namespace BaseApi.Services
             try
             {
                 Repository.Update(obj);
-                await UnitOfWork.ComplateAsync();
+                await UnitOfWork.CompleteAsync();
                 return new ObjectResponse<T>(obj);
             }
             catch (Exception e)
